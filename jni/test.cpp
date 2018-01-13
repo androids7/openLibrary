@@ -3,14 +3,14 @@
 #include<stdlib.h>
 #include<jni.h>
 
-
+char *test="global";
+char *line();
 extern "C"
 {
 char  *add(char *a,char *b) {
 	
-return "hello";
+return line();
 }
-
 
 
 jstring eat(JNIEnv* env)
@@ -19,3 +19,10 @@ jstring eat(JNIEnv* env)
 }
 
 }
+
+
+char *line()
+{
+	return test;
+}
+

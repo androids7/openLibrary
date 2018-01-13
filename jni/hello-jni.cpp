@@ -10,6 +10,14 @@ typedef char  *(* myadd)( char * a,char * b);
 
 typedef jstring (*eat)(JNIEnv *env);
 
+
+
+char *show();
+
+myadd sadd;
+
+
+
 extern "C"
 {
 	JNIEXPORT jstring JNICALL Java_as_op_lib_HelloJni_stringFromJNI(JNIEnv* env, jobject thiz)
@@ -25,21 +33,31 @@ extern "C"
 	}
 	
 	
-	myadd sadd=(myadd)dlsym(handle, "add");
+    sadd=(myadd)dlsym(handle, "add");
 
 	eat myeat=(eat)dlsym(handle,"eat");
 	
 	jstring  a=myeat(env);
 	
-	char *result= sadd("hello","...6");
+	 
+	char *result=show();
 
 	//dlclose(handle);
 	
 		//return dlerror();
 		
-		return a;
-		//env->NewStringUTF(result);
+		//return a;
+		return env->NewStringUTF(result);
 	}
+	
+
 }
 
 
+	 char  *show()
+	{
+		return sadd("hello","...6");
+	}
+
+
+	
